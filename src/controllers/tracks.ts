@@ -24,7 +24,7 @@ export const getItem = async (req: Request, res: Response) => {
       data: data
     });    
   } catch (error: any) {
-    handleHttpError(res, error.message, 403)
+    handleHttpError(res, error.message, 400)
   }
 };
 
@@ -45,11 +45,29 @@ export const createItem = async (req: Request, res: Response) => {
 
 // Actualizar un registro
 export const updateItem = async (req: Request, res: Response) => {
-
+  try {
+    const { id, ...body } = matchedData(req); // ...body -> get rest propierties
+    const item = await models.tracksModel.findByIdAndUpdate(id, body);
+    res.status(200).json({
+      status: 'OK',
+      data: item
+    });
+  } catch (error: any) {
+    handleHttpError(res, error.message, 400)
+  }
 };
 
 // Eliminar un registro
 export const deleteItem = async (req: Request, res: Response) => {
-
+  try {
+    const { id } = matchedData(req);
+    const item = await models.tracksModel.findByIdAndDelete(id);
+    res.status(200).json({
+      status: 'OK',
+      data: item
+    });
+  } catch (error: any) {
+    handleHttpError(res, error.message, 400);
+  }
 };
 
