@@ -3,11 +3,14 @@ import express from 'express';
 import cors from 'cors';
 import dbConnect from './config/mongo';
 import allRouters from './routes/';
+import path from 'path';
 
 const app = express();
 
 config();
 app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'storage')));
 app.use('/api/v1', allRouters);
 
 
@@ -18,5 +21,5 @@ app.listen(port, () => {
 });
 
 dbConnect()
-.then(() => console.log('Connection success'))
-.catch(() => console.log('Connection refused'));
+  .then(() => console.log('Connection success'))
+  .catch(() => console.log('Connection refused'));

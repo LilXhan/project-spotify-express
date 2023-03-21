@@ -1,10 +1,16 @@
-import express, { Router } from 'express';
+import { Router } from 'express';
 import fs from 'fs';
+import storageRouter from './storage';
 import tracksRouter from './tracks';
 
-const routers = [
-  tracksRouter
-]
+interface RouterMap {
+  [key: string]: Router;
+}
+
+const routers: RouterMap = {
+  tracksRouter,
+  storageRouter
+}
 
 const allRouters = Router();
 
@@ -14,11 +20,14 @@ const removeExtension = (fileName: string) => {
   return fileName.split('.').shift();
 };
 
-fs.readdirSync(PATH_ROUTES).filter((file) => {
-  const name = removeExtension(file); // users, storage, tracks
-  if (name !== 'index') {
-    allRouters.use(`/${name}`, routers); // http://localhost:3000/api/v1/${name}
-  };
+
+fs.readdir(PATH_ROUTES, (_, files) => {
+  files.filter((file) => {
+    const name = removeExtension(file); // users, storage, tracks
+    if (name !== 'index') {
+      allRouters.use(`/${name}`, routers[`${name}Router`]);
+    };
+  })
 });
 
 
