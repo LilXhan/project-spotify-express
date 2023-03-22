@@ -5,7 +5,7 @@ import { handleHttpError } from '../utils/handleError';
 
 
 // Listar todos los registros
-export const getItems = async (_: Request, res: Response) => {
+export const getItems = async (req: Request, res: Response) => {
   try {
     const data: Array<{}> = await models.tracksModel.find({});
     res.send({data});
