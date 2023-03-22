@@ -2,6 +2,7 @@ import { Router } from 'express';
 import fs from 'fs';
 import storageRouter from './storage';
 import tracksRouter from './tracks';
+import authRouter from './auth';
 
 interface RouterMap {
   [key: string]: Router;
@@ -9,7 +10,8 @@ interface RouterMap {
 
 const routers: RouterMap = {
   tracksRouter,
-  storageRouter
+  storageRouter,
+  authRouter
 }
 
 const allRouters = Router();

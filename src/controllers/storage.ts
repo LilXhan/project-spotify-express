@@ -62,7 +62,6 @@ export const updateItem = async (req: Request, res: Response) => {
   };
 };
 
-
 export const deleteItem = async (req: Request, res: Response) => {
   try {
     const { id } = matchedData(req);

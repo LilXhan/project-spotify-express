@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import uploadMiddleware from '../utils/handleStorage';
-import { createItem, getItems, getItem, deleteItem, updateItem } from '../controllers/storage';
-import { validatorGetId, validatorUpdateItem } from '../validators/storage';
+import { createItem, getItems, getItem, deleteItem } from '../controllers/storage';
+import { validatorGetId } from '../validators/storage';
 
 const storageRouter = Router();
 
@@ -12,7 +12,6 @@ const storageRouter = Router();
 storageRouter.get('/', getItems);
 storageRouter.get('/:id', validatorGetId, getItem);
 storageRouter.post('/', uploadMiddleware.single('myfile'), createItem);
-storageRouter.put('/:id', validatorUpdateItem, updateItem);
 storageRouter.delete('/:id', validatorGetId, deleteItem);
 
 export default storageRouter;

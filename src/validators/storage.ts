@@ -8,13 +8,3 @@ export const validatorGetId = [
     return validateResults(req, res, next);
   }
 ];
-
-export const validatorUpdateItem = [
-  check('id').exists().notEmpty().isMongoId(),
-  check('url').exists().notEmpty(),
-  check('filename').exists().notEmpty(),
-  (req: Request, res: Response, next: NextFunction) => {
-    return validateResults(req, res, next);
-  }
-];
-
